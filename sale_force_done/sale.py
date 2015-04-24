@@ -31,7 +31,7 @@ class sale_order(osv.osv):
                 invoice_id = invoice_obj.search(cr, uid, 
                     [('origin','like',rec.name)])
                 invoice_done = False
-                for invoice in invoice_obj.search(cr, uid,
+                for invoice in invoice_obj.browse(cr, uid,
                     invoice_id, context=None):
                     if invoice.state == 'paid':
                         invoice_done = True

@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <field name="company_id" position="after">
-                    <button name="force_closing" states="progress" string="Cerrar Pedido Manualmente" type="object" icon="gtk-execute"/>
+                    <button name="force_closing" states="progress" string="Cerrar Pedido Manualmente" type="object" icon="gtk-execute" class="oe_highlight" />
                 </field>
             </field>
         </record>
