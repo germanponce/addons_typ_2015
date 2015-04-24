@@ -31,6 +31,29 @@ class sale_order_line(osv.osv):
         if not product_id:
             return {}
         if type == 'make_to_stock':
+            
+            group_obj = self.pool.get('res.groups')
+            group_id = group_obj.search(cr, uid, [('name','=',
+                'Puede vender debajo del margen minimo')])
+            if group_id:
+                ##### MANERA CONVENCIONAL RECORRIENDO LOS MODELOS
+                user_list = []
+                for group in group_obj.browse(cr, uid, group_id, context=None):
+                    for user in group.users:
+                        user_list.append(user.id)
+                        if user.id == uid:
+                            return {}
+
+                ### MANERA VELOZ POR QUERY SQL
+                # cr.execute("""select uid from res_groups_users_rel 
+                #         where gid in %s
+                #     """, (tuple(group_id),))
+                # cr_res = cr.fetchall()
+                # user_ids = [x[0] for x in cr_res]
+                # print "############ GRUPOS QUERY SQL >>>>>>>>>> ", user_ids
+                # if uid in user_ids:
+                #     return {}
+
             pricelist_obj = self.pool.get('product.pricelist')
             pricelist_br = pricelist_obj.browse(cr, uid, pricelist_id,
                 context=context)
