@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--======================FORM VIEW =======================-->
+        <record id="cfdi_addendas_manager_form" model="ir.ui.view">
+            <field name="name">cfdi.addendas.manager.form</field>
+            <field name="model">cfdi.addendas.manager</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generacion de Addendas" version="7.0">
+                    <header>
+                        <field name="datas_fname" invisible="1" />
+                        <field name="download_file" invisible="1" />
+                    </header>
+                    <sheet attrs="{'invisible':[('download_file','=',True)]}">
+                        <separator colspan="4" string="Selecciona la Factura Timbrada y Pulsa Generar"/>
+                        <group>
+                            <field name="invoice_id" domain="[('state','in',('open','paid'))]"/>
+                        </group>
+                        
+                    </sheet>
+                    <sheet attrs="{'invisible':[('download_file','=',False)]}">
+                        <div >
+                            <h2>Generacion Completa</h2>
+                            <p>Descarga el Documento: <field name="file" readonly="1" filename="datas_fname"/></p>
+                            <p> Documento Generado y Codificado<strong>Unicode/UTF-8</strong></p> 
+                        </div>
+                    </sheet>
+                    <footer attrs="{'invisible':[('download_file','=',False)]}">
+                        <center>
+                            
+                            <button string="Cerrar" special="cancel"  icon="gtk-cancel" class="oe_highlight"/>
+                        </center>
+                    </footer>
+                    <footer attrs="{'invisible':[('download_file','=',True)]}">
+                        <center>
+                            <button name="process_addenda" string="Generar" type="object"  icon="gtk-execute"/>
+                            o
+                            <button string="Cancelar" class="oe_link" special="cancel" icon="gtk-cancel"/>
+                        </center>
+                    </footer>
+                </form>
+                </field>
+            </record>
+
+
+        <!--=================ACCION ASISTENTE==================-->
+        <act_window
+            name="Generar Addenda"
+            res_model="cfdi.addendas.manager"
+            src_model="account.invoice"
+            view_mode="form" target="new"
+            key2="client_action_multi"
+            id="action_cfdi_addendas_manager"/>
+
+
+
+    </data>
+</openerp>

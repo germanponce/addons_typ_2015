@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="consult_tree_view_partner" model="ir.ui.view">
+          <field name="name">consult.table.partner.tree</field>
+          <field name="model">consult.table.partner</field>
+          <field name="type">tree</field>
+          <field name="priority" eval="5"/>
+          <field name="arch" type="xml">
+            <tree string="Consulta de Facturas x Cliente" create="false">
+               <field name="sequence" />
+               <field name="partner_id" />
+               <field name="start_date" />
+                <field name="end_date" />
+                <button name="print_report" string="Imprimir" type="object" icon="gtk-execute"/>
+                <button name="asign_sequence" string="Asignar Secuencia" type="object" icon="gtk-apply"/>
+            </tree>
+          </field>
+        </record>
+
+        <record id="consult_form_view_partner" model="ir.ui.view">
+          <field name="name">consult.table.partner.form</field>
+          <field name="model">consult.table.partner</field>
+          <field name="type">form</field>
+          <field name="priority" eval="5"/>
+          <field name="arch" type="xml">
+            <form string="Consulta de Facturas x Cliente" create="false" edit="false" version="7.0">
+                <header>
+                    <button name="print_report" string="Imprimir" type="object" icon="gtk-execute"/>
+                    <button name="asign_sequence" string="Asignar Secuencia" type="object" icon="gtk-apply"/>
+                    <!-- Boton de Tipo Accion de Ventana -->
+                    <button name="%(action_consult_export)d" string="Exportar Excel" icon="terp-dolar_ok!" type="action" />
+                </header>
+                <sheet>
+                    <h1>
+                      <field name="sequence" />
+                    </h1>
+                    <separator string="Cliente" />
+                    <group>
+                        <field name="partner_id" />
+                    </group>
+                    <separator string="Periodo de Consulta" />
+                    <group col="4">
+                        <field name="start_date" />
+                        <field name="end_date" />
+                    </group>
+                    <separator string="Total Vendido"/>
+                    <group col="4">
+                        <field name="amount_total" nolabel="1"/>
+                    </group>
+                    <separator string="Detalle de Ventas" />
+                    <field name="report_lines">
+                        <tree string="Lineas de Venta" create="false">
+                            <field name="name" />
+                            <field name="product_id" />
+                            <field name="qty" />
+                            <field name="amount_total" />
+                        </tree>
+                    </field>
+                </sheet>               
+            </form>
+          </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_consult_partner_invoices">
+              <field name="name">Vistas Consulta de Facturas</field>
+              <field name="res_model">consult.table.partner</field>
+              <field name="view_type">form</field>
+              <field name="view_mode">tree,form</field>
+          </record>
+
+        <!--=========== MENU ============-->
+        <menuitem action="action_consult_partner_invoices" id="menu_view_consult_partner" parent="account.menu_finance_receivables" sequence="101" />
+
+
+    </data>
+</openerp>

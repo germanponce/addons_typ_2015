@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- ======= CODIGO DE LA SECUENCIA ========= -->
+        <record id="consult_code_partner" model="ir.sequence.type">
+            <field name="name">Codigo de Consulta Facturas</field>
+            <field name="code">consult.table.partner</field>
+        </record>
+
+        <!-- ======= SECUENCIA ========= -->
+
+        <record id="consult_sequence_partner" model="ir.sequence">
+            <field name="name">Secuencia de Consultas Facturas</field>
+            <field name="code">consult.table.partner</field>
+            <field name="prefix">CONSULTA: </field>
+            <field name="padding">3</field>
+            <field name="implementation">no_gap</field>
+        </record>
+
+    </data>
+</openerp>

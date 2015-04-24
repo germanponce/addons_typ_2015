@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <record id="dropshiping_sale_view_order_form_typ_new" model="ir.ui.view">
+            <field name="name">dropshipping.sale.order.line.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="special_sale" />
+                    <field name="ref_customer" attrs="{'required':[('special_sale','=',True)],'invisible':[('special_sale','=',False)]}"/> <!-- readonly -->
+                    <!-- 
+                        <field name="ref_customer" attrs="{'required':[('special_sale','=','make_to_order')],'invisible':[('type','!=','make_to_order')]}"/>
+                    -->
+                </field>
+            </field>
+        </record>
+
+</data>
+</openerp>
