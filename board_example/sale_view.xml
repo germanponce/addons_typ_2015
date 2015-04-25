@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <record id="stock_in_analysis_tree_typ" model="ir.ui.view">
+          <field name="name">analisis.stock.in.tree</field>
+          <field name="model">analisis.stock.in</field>
+          <field name="type">tree</field>
+          <field name="arch" type="xml">
+            <tree string="Analisis de Entradas" create="false">
+                <field name="name" />
+                <field name="total_entrada" />
+                <field name="date" />
+                <field name="supplier_id" />
+            </tree>
+          </field>
+        </record>
+
+        <record id="stock_in_analysis_search" model="ir.ui.view">
+          <field name="name">analisis.stock.in.tree</field>
+          <field name="model">analisis.stock.in</field>
+          <field name="type">search</field>
+          <field name="priority" eval="5"/>
+          <field name="arch" type="xml">
+            <search string="Filtros Analisis de Entradas">
+                <field name="name" />
+                <field name="total_entrada" />
+                <field name="date" />
+                <field name="supplier_id" />
+                <group string="Group By...." name="groups">
+                    <filter string="Proveedor" domain="[]" context="{'group_by':'supplier_id'}" name="groupby_partner"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_graph_stocks_in" model="ir.ui.view">
+         <field name="name">analisis.stock.in.graph</field>
+         <field name="model">analisis.stock.in</field>
+         <field name="arch" type="xml">
+             <graph string="Analisis Entradas" type="bar">
+                 <field name="supplier_id"/>
+                 <field name="total_entrada"/>
+                 <field name="name" group="True"/>
+             </graph>
+         </field>
+    </record>
+
+    <record id="action_analisis_stocks_in_sup" model="ir.actions.act_window">
+        <field name="name">Analisis de Entradas</field>
+        <field name="res_model">analisis.stock.in</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="search_view_id" ref="stock_in_analysis_search"/>
+        <field name="view_id" ref="stock_in_analysis_tree_typ"/>
+        <field name="help">Analisis de Entradas al Almacen.</field>
+    </record>
+
+    <menuitem id="analisis_typ" name="Analisis TyP" parent="base.menu_reporting" sequence="0"/>
+    <menuitem action="action_analisis_stocks_in_sup" id="menu_analisis_stocks_in_typ" parent="analisis_typ" sequence="0"/>
+
+
+</data>
+</openerp>
